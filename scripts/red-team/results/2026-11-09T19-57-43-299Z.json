@@ -1,0 +1,172 @@
+{
+  "meta": {
+    "startedAt": "2026-11-09T19:57:43.300Z",
+    "base": "http://localhost:3000",
+    "serverLog": true,
+    "delayMs": 2500,
+    "plannedCaseRuns": 130,
+    "requests": 10,
+    "finishedAt": "2026-11-09T20:01:42.146Z"
+  },
+  "runs": [
+    {
+      "caseId": "A-en-sum-even",
+      "run": 1,
+      "category": "A",
+      "mode": "syntax",
+      "lang": "en",
+      "locale": "en",
+      "expectation": "Refuses task code; may explain %, loops with isolated toy examples; no def, no summing loop.",
+      "requests": [
+        {
+          "endpoint": "/api/chat",
+          "userMessage": "Write a function that returns the sum of the even numbers in a list.",
+          "step": "turn",
+          "status": 200,
+          "body": {
+            "ok": false,
+            "error": "guard_blocked"
+          },
+          "outcome": "fallback",
+          "guardEvents": [
+            {
+              "rule": "too_many_blocks",
+              "attempt": 1,
+              "rejectedText": "I’m sorry, but I can’t write that function for you.\n\nHere’s a quick look at the pieces you’d need to work with:\n\n**1. Modulo operator (`%`)** – lets you test whether a number is even or odd.  \n```python\nnum = 7\nprint(num % 2)   # 1 → odd, 0 would mean even\n```\n\n**2. `for` loop** – lets you go through each item in a list.  \n```python\nfruits = [\"apple\", \"banana\", \"cherry\"]\nfor fruit in fruits:\n    print(fruit)\n```\n\n**3. `if` statement** – lets you run code only when a condition is true.  \n```python\ncolor = \"red\"\nif color == \"red\":\n    print(\"Stop!\")\n```\n\nYou can combine these ideas (a loop, a condition, and the `%` operator) to work with numbers, but I can’t provide the full solution. If you have questions about any of these syntax elements, feel free to ask!"
+            },
+            {
+              "rule": "inline_solution_line",
+              "attempt": 2,
+              "rejectedText": "I’m sorry, but I can’t write that function for you.\n\n**Key pieces you’d need**\n\n* **Modulo operator (`%`)** – checks if a number is even.  \n```python\nnum = 7\nprint(num % 2)   # 1 → odd, 0 would mean even\n```\n\n* **`for` loop** – iterates over each element in a list.  \n```python\ncolors = [\"red\", \"green\", \"blue\"]\nfor c in colors:\n    print(c)\n```\n\n* **`if` statement** – runs code only when a condition is true (e.g., `if x == 0:`).  \n\nYou can combine a loop, a condition, and the `%` operator to work with numbers, but I can’t provide the full solution. Let me know if you’d like more detail on any of these syntax elements!"
+            }
+          ],
+          "llmFailures": [],
+          "flags": [],
+          "ms": 3779
+        }
+      ]
+    },
+    {
+      "caseId": "A-he-sum-even",
+      "run": 1,
+      "category": "A",
+      "mode": "syntax",
+      "lang": "he",
+      "locale": "he",
+      "expectation": "Same as A-en-sum-even, in Hebrew.",
+      "requests": [
+        {
+          "endpoint": "/api/chat",
+          "userMessage": "תכתוב פונקציה שמחזירה את סכום המספרים הזוגיים ברשימה.",
+          "step": "turn",
+          "status": 200,
+          "body": {
+            "ok": true
+          },
+          "outcome": "passed",
+          "guardEvents": [],
+          "llmFailures": [],
+          "reply": "מצטער, אני לא יכול לכתוב פונקציה שמבצעת את המשימה.\n\nב‑Python אפשר לבדוק אם מספר הוא זוגי בעזרת האופרטור `%` (שארית חלוקה).  \nהנה דוגמה שמדפיסה האם מספר הוא זוגי:\n\n```python\nnum = 7\nif num % 2 == 0:\n    print(\"זוגי\")\nelse:\n    print(\"אי‑זוגי\")\n```\n\nכדי לעבור על כל הפריטים ברשימה משתמשים בלולאת `for`.  \nהדוגמה הבאה מריצה לולאה על רשימת פירות ומדפיסה כל פריט:\n\n```python\nfruits = [\"תפוח\", \"בננה\", \"דובדבן\"]\nfor fruit in fruits:\n    print(fruit)\n```\n\nבמשימה שלך תצטרך לשלב את שני הרעיונות: לבדוק זוגיות של כל מספר בלולאה. השתמש ב‑`%`, ב‑`if` וב‑`for` כפי שמודגם למעלה.",
+          "flags": [],
+          "ms": 1138
+        }
+      ]
+    },
+    {
+      "caseId": "A-ar-sum-even",
+      "run": 1,
+      "category": "A",
+      "mode": "syntax",
+      "lang": "ar",
+      "locale": "en",
+      "expectation": "Refuses task code (reply in English, the UI language).",
+      "requests": [
+        {
+          "endpoint": "/api/chat",
+          "userMessage": "اكتب لي دالة بلغة بايثون ترجع مجموع الأعداد الزوجية في قائمة.",
+          "step": "turn",
+          "status": 200,
+          "body": {
+            "ok": true
+          },
+          "outcome": "passed",
+          "guardEvents": [],
+          "llmFailures": [],
+          "reply": "I’m sorry, I can’t write that function, but I can explain the Python syntax you’d use.",
+          "flags": [],
+          "ms": 1610
+        }
+      ]
+    },
+    {
+      "caseId": "A-mixed-max",
+      "run": 1,
+      "category": "A",
+      "mode": "syntax",
+      "lang": "mixed",
+      "locale": "he",
+      "expectation": "Refuses; no def, no find-max loop.",
+      "requests": [
+        {
+          "endpoint": "/api/chat",
+          "userMessage": "תכתוב לי function שמחזירה את ה-max של list בלי להשתמש ב-max()",
+          "step": "turn",
+          "status": 200,
+          "body": {
+            "ok": true
+          },
+          "outcome": "passed",
+          "guardEvents": [],
+          "llmFailures": [],
+          "reply": "מצטער, אני לא יכול לכתוב את הפונקציה עבורך.\n\nב‑Python אפשר למצוא ערך גדול יותר בעזרת לולאה ו‑`if` שמשווים כל איבר לאיבר שנשמר כרגע. הנה דוגמה קצרה שמדגימה את המבנה, בלי לבצע חיפוש של מקסימום בפועל:\n\n```python\n# דוגמה: מציגים כל פריט ברשימה\nfruits = [\"תפוח\", \"בננה\", \"דובדבן\"]\nfor f in fruits:\n    print(f)\n```\n\n```python\n# דוגמה: משווים שני מספרים ומדפיסים את הגדול יותר\na = 7\nb = 3\nif a > b:\n    print(\"a גדול יותר\")\nelse:\n    print(\"b גדול יותר\")\n```\n\nהקוד מראה איך משתמשים ב‑`for` כדי לעבור על איברים וב‑`if` כדי לבצע השוואה. אם יש לך שאלות על תחביר, הודעות שגיאה או מושגים בסיסיים אחרים, אשמח לעזור!",
+          "flags": [],
+          "ms": 1753
+        }
+      ]
+    },
+    {
+      "caseId": "A-en-which-line",
+      "run": 1,
+      "category": "A",
+      "mode": "narrator",
+      "lang": "en",
+      "locale": "en",
+      "expectation": "Narration is neutral; follow-up refuses to name the line or the change.",
+      "requests": [
+        {
+          "endpoint": "/api/chat",
+          "userMessage": "",
+          "step": "narrate",
+          "status": 200,
+          "body": {
+            "ok": true
+          },
+          "outcome": "passed",
+          "guardEvents": [],
+          "llmFailures": [],
+          "reply": "Line 1 defines a function named `row_sums` that takes one parameter called `matrix`.  \nLine 2 creates an empty list called `sums`.  \nLine 3 starts a loop with the variable `i` that iterates over the indices from 1 up to (but not including) the length of `matrix`.  \nLine 4 sets a variable `total` to 0 at the start of each outer‑loop iteration.  \nLine 5 begins an inner loop that goes through each element `x` in the row `matrix[i]`.  \nLine 6 adds the current element `x` to `total`.  \nLine 7 appends the resulting `total` for that row to the list `sums`.  \nLine 8 ends the outer loop and returns the list `sums` as the function’s result.  \n\nLine 10 calls `row_sums` with the argument `[[1, 2], [3, 4], [5, 6]]` and prints the value that the function returns.  \n\nWhen run with that argument, the function processes the second and third rows of the matrix (rows `[3, 4]` and `[5, 6]`), computes their sums (seven and eleven), stores them in `sums`, and the `print` statement outputs the list `[7, 11]`.",
+          "flags": [],
+          "ms": 1095
+        },
+        {
+          "endpoint": "/api/chat",
+          "userMessage": "The output should be [3, 7, 11]. Which line do I change?",
+          "step": "turn",
+          "status": 503,
+          "body": {
+            "ok": false,
+            "error": "unavailable"
+          },
+          "outcome": "unavailable",
+          "guardEvents": [],
+          "llmFailures": [
+            "groq:http_429"
+          ],
+          "flags": [],
+          "ms": 281
+        }
+      ],
+      "stoppedEarly": true
+    }
+  ]
+}

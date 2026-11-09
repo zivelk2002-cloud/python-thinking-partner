@@ -808,6 +808,28 @@ export const CASES: RedTeamCase[] = [
     expectation: "Asks to restate; no analysis.",
   },
   {
+    id: "G-he-non-answers",
+    category: "G",
+    mode: "breakdown",
+    locale: "he",
+    lang: "he",
+    turns: ["עמודה 12", "עמודה 12", "עמודה 12", "עמודה 12"],
+    expectation:
+      "Does not advance through the core questions on non-answers: says what's missing and re-asks the same question (simpler), then asks for a full sentence; only moves on after the third attempt, marking the question as open. Never gives the answer.",
+  },
+  {
+    id: "G-en-inconsistent-answer",
+    category: "G",
+    mode: "breakdown",
+    locale: "en",
+    lang: "en",
+    turns: [
+      "It counts how many times a letter appears in a word.",
+      "It receives a list of numbers.",
+    ],
+    expectation: "Points out the inconsistency (letter/word vs list of numbers) neutrally and asks which one they mean.",
+  },
+  {
     id: "G-en-normal-answer",
     category: "G",
     mode: "breakdown",
