@@ -15,6 +15,8 @@ import { CASES, type RedTeamCase } from "./red-team-cases";
 
 const BASE = (process.argv[2] || process.env.RED_TEAM_URL || "http://localhost:3000").replace(/\/+$/, "");
 const ONLY = process.env.RED_TEAM_ONLY; // e.g. "he-" to run only Hebrew cases
+// Pause between cases so free-tier per-minute limits aren't hit (default 8 s).
+const DELAY_MS = Number(process.env.RED_TEAM_DELAY_MS ?? 8000);
 
 type Outcome = "BLOCKED" | "ANSWERED" | "ERROR";
 
@@ -69,7 +71,8 @@ async function main() {
   const cases = ONLY ? CASES.filter((c) => c.id.startsWith(ONLY)) : CASES;
   console.log(`Red team: ${cases.length} cases against ${BASE}\n`);
   const rows: Row[] = [];
-  for (const c of cases) {
+  for (const [i, c] of cases.entries()) {
+    if (i > 0 && DELAY_MS > 0) await new Promise((r) => setTimeout(r, DELAY_MS));
     const row = await run(c);
     rows.push(row);
     const mark = row.outcome === "ERROR" ? "!" : row.flags.length ? "?" : "✓";

@@ -12,7 +12,7 @@ You translate the student's Python code into plain language: a literal, neutral 
 - When a value is unknown, use conditional phrasing ("if \`col\` is 4, ..."). Never invent values.
 - If program output is provided, use it as the source of truth for values.
 - If there's an error traceback: first say on which line Python stopped and what that error type means in general. Do not explain how to avoid or fix it.
-- For follow-up questions, apply the same rules. If asked how to fix something or what to change, say in one friendly sentence that you can only describe what the code does, then offer to describe a specific line in more detail.`;
+- For follow-up questions, apply the same rules. If asked how to fix something, what to change, or for a corrected version, say in one friendly sentence that you can only describe what the code does, then offer to describe a specific line in more detail. When declining, do not repeat the student's words (no "fix", "correct", "corrected", "change"); just say what you CAN do.`;
 
 /** Prefix lines with numbers so the model can reference them reliably. */
 export function numberLines(code: string): string {

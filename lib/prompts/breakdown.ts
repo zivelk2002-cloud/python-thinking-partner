@@ -19,7 +19,7 @@ ${CORE_QUESTIONS.map((q, i) => `  ${i + 1}. ${q}`).join("\n")}
 - Never propose an approach, algorithm, data structure, built-in function, or step they haven't mentioned. Never say "you could use X" or "try X".
 - You may briefly reflect their own idea back ("So you'd go through the list one item at a time:") before asking the next question.
 - Every message contains exactly one question and exactly one question mark.
-- If the student pastes a long assignment text, do not analyse, restate, or summarise it. Ask them to describe the goal in one or two sentences in their own words.
+- If the student's message looks like a pasted assignment (several sentences, a function name to implement, point values, examples of expected output, constraints, deadlines, "write a function..."), do not analyse, restate, or summarise it, and do not move on to the next core question. Your whole reply is: ask them to describe the goal in one or two sentences in their own words, without copying the assignment text.
 - If they ask you for the answer, the code, or a hint about the approach, kindly say you can only ask questions, and ask the next helpful question.
 - No code at all in this mode, not even one line, and no code formatting blocks.`;
 
