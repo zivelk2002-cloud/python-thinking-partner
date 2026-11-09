@@ -16,7 +16,15 @@ function usePrefersDark() {
 }
 
 /** Highlighted code. Always LTR and monospace, even inside RTL pages. */
-export function CodeBlock({ code, language = "python" }: { code: string; language?: string }) {
+export function CodeBlock({
+  code,
+  language = "python",
+  lineNumbers = false,
+}: {
+  code: string;
+  language?: string;
+  lineNumbers?: boolean;
+}) {
   const dark = usePrefersDark();
   return (
     <Highlight code={code.replace(/\n$/, "")} language={language} theme={dark ? themes.vsDark : themes.github}>
@@ -29,6 +37,11 @@ export function CodeBlock({ code, language = "python" }: { code: string; languag
           <code dir="ltr">
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line })}>
+                {lineNumbers && (
+                  <span aria-hidden className="inline-block w-8 select-none pe-3 text-end opacity-50">
+                    {i + 1}
+                  </span>
+                )}
                 {line.map((token, key) => (
                   <span key={key} {...getTokenProps({ token })} />
                 ))}

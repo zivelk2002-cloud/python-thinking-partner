@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { NewSessionButton } from "./NewSessionButton";
 import { BreakdownMode } from "./modes/BreakdownMode";
+import { NarratorMode } from "./modes/NarratorMode";
 import { useSession } from "./SessionProvider";
 
 export function HomeView() {
@@ -24,6 +25,7 @@ export function HomeView() {
         </div>
       </div>
       {mode === "breakdown" && <BreakdownMode />}
+      {mode === "narrator" && <NarratorMode />}
     </div>
   );
 }
