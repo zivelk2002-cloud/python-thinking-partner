@@ -44,8 +44,8 @@ export function createRateLimiter(max = RATE_LIMIT.max, windowMs = RATE_LIMIT.wi
   };
 }
 
-/** One shared limiter for all AI routes in this instance. */
-export const aiLimiter = createRateLimiter();
+/** One shared limiter for all AI routes in this instance. RATE_LIMIT_MAX overrides the cap (e.g. for red-team runs). */
+export const aiLimiter = createRateLimiter(Number(process.env.RATE_LIMIT_MAX) || RATE_LIMIT.max);
 
 export function clientIp(headers: Headers): string {
   const fwd = headers.get("x-forwarded-for");

@@ -20,6 +20,7 @@ export function HomeView() {
       aria-labelledby={`tab-${mode}`}
       className="flex flex-col gap-4"
     >
+      <h1 className="sr-only">{t(`${mode}.tab`)}</h1>
       <div className="flex flex-wrap items-start justify-between gap-2">
         <p className="min-w-0 flex-1 text-sm text-muted">{t(`${mode}.does`)}</p>
         <div className="flex gap-2">
