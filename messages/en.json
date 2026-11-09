@@ -2,5 +2,138 @@
   "meta": {
     "title": "Python Thinking Partner",
     "description": "A study helper for intro Python: guiding questions, a plain-language narration of your own code, and syntax help. No solutions."
+  },
+  "nav": {
+    "siteName": "Python Thinking Partner",
+    "rules": "Rules",
+    "language": "Language",
+    "modes": "Modes",
+    "newSession": "New session",
+    "newSessionConfirm": "Start a new session? Everything in this tab will be cleared.",
+    "skipToContent": "Skip to content"
+  },
+  "modes": {
+    "breakdown": {
+      "tab": "Break it down",
+      "does": "I ask you questions so you can plan in your own words. I won't solve anything.",
+      "intro": "I'll ask you questions; you answer in your own words. I won't solve anything, and there's no place to paste the assignment on purpose.",
+      "firstQuestion": "In your own words, what does the function or program need to do?",
+      "inputLabel": "Your answer",
+      "placeholder": "Answer in your own words…",
+      "summarise": "Summarise my thinking",
+      "summarising": "Summarising…",
+      "summaryTitle": "Your thinking so far"
+    },
+    "narrator": {
+      "tab": "What does my code do?",
+      "does": "I describe what your code literally does, in plain words. I don't judge it or fix it.",
+      "notice": "I'll describe what your code does, line by line, in plain words. I won't tell you how to fix it.",
+      "codeLabel": "Your code",
+      "codePlaceholder": "Paste your Python code here",
+      "outputLabel": "Output from VS Code / terminal (optional)",
+      "outputHint": "Prints and the full error traceback, if there is one.",
+      "outputPlaceholder": "Paste the output or the error here",
+      "submit": "Describe my code",
+      "submitting": "Reading your code…",
+      "codeShown": "The code I'm describing",
+      "editCode": "Describe different code",
+      "followUpLabel": "Ask about a line",
+      "followUpPlaceholder": "e.g. What does line 6 do exactly?"
+    },
+    "syntax": {
+      "tab": "Syntax help",
+      "does": "I explain Python syntax and concepts with small generic examples. I don't write code for your task.",
+      "inputLabel": "Your question",
+      "placeholder": "Ask about syntax, a built-in function, or an error message…",
+      "chipsLabel": "Example questions",
+      "chips": [
+        "How do I define a dictionary?",
+        "What does `split()` return?",
+        "`for` vs `while`?",
+        "What does this error mean: `TypeError: unsupported operand type(s) for +: 'int' and 'str'`"
+      ],
+      "codeDetected": "Looks like you pasted your own code. To understand what it does, use the code mode.",
+      "toNarrator": "Explain my code in mode 2"
+    }
+  },
+  "chat": {
+    "send": "Send",
+    "sending": "Thinking…",
+    "you": "You",
+    "assistant": "Thinking partner",
+    "enterHint": "Enter to send, Shift+Enter for a new line",
+    "conversation": "Conversation"
+  },
+  "errors": {
+    "unavailable": "The free AI is busy right now. Please try again in a minute.",
+    "guard_blocked": "I started writing something that breaks this site's rules, so I stopped. Try asking in a different way, about a concept rather than your task.",
+    "rate_limited": "You've sent a lot of messages in a short time. Please wait about {minutes} minutes and try again.",
+    "too_long": "That's too long for me. Please shorten it and try again.",
+    "bad_request": "Something went wrong with that request. Please try again.",
+    "network": "Couldn't reach the server. Check your connection and try again.",
+    "retry": "Try again"
+  },
+  "recap": {
+    "button": "Video recap",
+    "buttonHint": "Make a NotebookLM video about the concepts from this session",
+    "title": "Your video recap",
+    "generating": "Writing your recap…",
+    "intro": "Here's a concept summary of today's session (without your code) and a prompt for NotebookLM's video feature.",
+    "docTitle": "What I learned today",
+    "recapLabel": "1. Recap (paste as a source)",
+    "promptLabel": "2. Video customisation prompt",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "stepsTitle": "How to make the video",
+    "steps": [
+      "Open NotebookLM and create a new notebook.",
+      "Add a source → choose \"Copied text\" → paste the recap.",
+      "In the Studio panel, choose Video Overview and open its customisation option.",
+      "Paste the prompt into the customisation box and generate."
+    ],
+    "openNotebook": "Open NotebookLM",
+    "close": "Close",
+    "videoPrompt": "Create a short, friendly explainer video for a beginner Python student about the concepts in this source. Use simple visual metaphors, walk through each toy example step by step, and keep it under 5 minutes. Do not suggest solutions to any specific assignment.",
+    "sharingNote": "The recap is concept-only so it's safe to share. Never add your own code to it."
+  },
+  "privacy": {
+    "title": "Before you start",
+    "text": "Your text is sent to a free AI service and may be used by that provider to improve its models. Don't paste personal information. Nothing is saved here; closing the tab clears everything.",
+    "ok": "Got it"
+  },
+  "footer": {
+    "note": "Built to follow the course's academic-integrity policy."
+  },
+  "rules": {
+    "title": "Rules: how to use this site honestly",
+    "intro": "Your course allows AI only to help you understand concepts and tools, never to do the work for you. This site is built around that rule.",
+    "keyTest": "The key test: if an answer could become a direct part of your solution, it's not allowed.",
+    "allowedTitle": "Allowed",
+    "allowed": [
+      "Understanding error messages, e.g. what `TypeError: unsupported operand type(s) for +: 'int' and 'str'` means.",
+      "Checking how built-in functions behave, e.g. what `split()` does and returns.",
+      "Clarifying language concepts, e.g. the difference between `while` and `for`.",
+      "General concepts with simple examples, e.g. \"explain recursion\".",
+      "Syntax questions, e.g. the syntax of a list comprehension."
+    ],
+    "forbiddenTitle": "Not allowed",
+    "forbidden": [
+      "Pasting the assignment and asking AI for a solution.",
+      "Asking AI to write a function that does what the assignment requires.",
+      "Pasting your code and asking AI to fix it or make it pass the tests.",
+      "Using AI-generated code as a starting point and changing it.",
+      "Sharing your code with other students in any form (files, screen sharing, a whiteboard, dictating it)."
+    ],
+    "siteTitle": "How this site keeps you on the right side",
+    "site": [
+      "There's no place to paste your assignment.",
+      "\"Break it down\" only asks you questions; it never suggests an approach.",
+      "\"What does my code do?\" only describes your code. It doesn't know what the code is supposed to do, so it can't steer you toward a fix.",
+      "\"Syntax help\" explains language features with generic examples (fruits, pets, colours), never code for your task.",
+      "The video recap is about concepts only and never contains your code, because sharing code is not allowed."
+    ],
+    "unsureTitle": "Not sure?",
+    "unsure": "If you're unsure whether something is allowed, ask in the course's personal-requests forum.",
+    "back": "Back to the site"
   }
 }
