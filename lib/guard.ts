@@ -220,6 +220,11 @@ export function checkReply(task: Task, reply: string, ctx: GuardContext = {}): G
 }
 
 /** Logs only the rule name (no user content). */
-export function logRejection(task: Task, rule: GuardRule, attempt: number): void {
+export function logRejection(task: Task, rule: GuardRule, attempt: number, rejectedText?: string): void {
   console.warn(`[guard] mode=${task} rule=${rule} attempt=${attempt}`);
+  // Red-team instrumentation only: opt-in, and never in production builds,
+  // so student content never reaches production logs.
+  if (process.env.GUARD_DEBUG === "1" && process.env.NODE_ENV !== "production" && rejectedText !== undefined) {
+    console.warn(`[guard-debug] mode=${task} rule=${rule} attempt=${attempt} text=${JSON.stringify(rejectedText)}`);
+  }
 }

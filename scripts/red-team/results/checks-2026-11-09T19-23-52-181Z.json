@@ -1,0 +1,146 @@
+{
+  "at": "2026-11-09T19:23:52.184Z",
+  "base": "https://python-thinking-partner.vercel.app",
+  "results": [
+    {
+      "id": "bundle:api-key-value",
+      "pass": true,
+      "detail": "scanned 11 scripts + 3 pages; no key value found"
+    },
+    {
+      "id": "bundle:gsk_ prefix (Groq key)",
+      "pass": true,
+      "detail": "not present"
+    },
+    {
+      "id": "bundle:AIza prefix (Google key)",
+      "pass": true,
+      "detail": "not present"
+    },
+    {
+      "id": "bundle:sk-or- prefix (OpenRouter key)",
+      "pass": true,
+      "detail": "not present"
+    },
+    {
+      "id": "bundle:env var names",
+      "pass": true,
+      "detail": "not present"
+    },
+    {
+      "id": "bundle:provider endpoints",
+      "pass": true,
+      "detail": "not present"
+    },
+    {
+      "id": "bundle:shared rules prompt",
+      "pass": true,
+      "detail": "not present"
+    },
+    {
+      "id": "bundle:mode prompts",
+      "pass": true,
+      "detail": "not present"
+    },
+    {
+      "id": "bundle:guard word lists",
+      "pass": true,
+      "detail": "not present"
+    },
+    {
+      "id": "xss:raw-script",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p>Hello &lt;script&gt;alert(1)&lt;/script&gt; world</p></div>"
+    },
+    {
+      "id": "xss:img-onerror",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\">&lt;img src=x onerror=&quot;alert(document.cookie)&quot;&gt;</div>"
+    },
+    {
+      "id": "xss:svg-onload",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p>&lt;svg onload=alert(1)&gt;&lt;/svg&gt;</p></div>"
+    },
+    {
+      "id": "xss:iframe",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\">&lt;iframe src=&quot;javascript:alert(1)&quot;&gt;&lt;/iframe&gt;</d"
+    },
+    {
+      "id": "xss:md-js-link",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p><a href=\"\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-"
+    },
+    {
+      "id": "xss:md-js-link-upper",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p><a href=\"\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-"
+    },
+    {
+      "id": "xss:md-js-link-spaced",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p><a href=\"\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-"
+    },
+    {
+      "id": "xss:md-js-link-entity",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p><a href=\"\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-"
+    },
+    {
+      "id": "xss:md-js-link-tab",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p>[docs](java\tscript:alert(1))</p></div>"
+    },
+    {
+      "id": "xss:md-data-link",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p><a href=\"\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-"
+    },
+    {
+      "id": "xss:md-vbscript-link",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p><a href=\"\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-"
+    },
+    {
+      "id": "xss:autolink-js",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p><a href=\"\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-"
+    },
+    {
+      "id": "xss:md-image-remote",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p></p></div>"
+    },
+    {
+      "id": "xss:md-image-js",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p></p></div>"
+    },
+    {
+      "id": "xss:html-a-js",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p>&lt;a href=&quot;javascript:alert(1)&quot;&gt;click&lt;/a&gt;</p>"
+    },
+    {
+      "id": "xss:reference-link-js",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><p><a href=\"\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-"
+    },
+    {
+      "id": "xss:code-fence-script",
+      "pass": true,
+      "detail": "<div class=\"prose-chat leading-relaxed break-words\"><pre dir=\"ltr\" class=\"prism-code language-html my-2 overflow-x-auto "
+    },
+    {
+      "id": "provider:bad-key",
+      "pass": true,
+      "detail": "throws AllProvidersFailedError: \"All LLM providers failed: groq(http_401)\" (no key in message: true)"
+    },
+    {
+      "id": "route:error-shape",
+      "pass": true,
+      "detail": "HTTP 400 {\"ok\":false,\"error\":\"bad_request\"}"
+    }
+  ]
+}
