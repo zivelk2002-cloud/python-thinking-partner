@@ -28,6 +28,16 @@ describe("getProviders", () => {
     expect(list[1].baseUrl).toBe("https://api.groq.com/openai/v1");
   });
 
+  it("strips quotes and whitespace pasted around values", () => {
+    const [p] = getProviders({
+      LLM_PROVIDER_ORDER: "groq",
+      GROQ_API_KEY: ' "gsk_abc" ',
+      GROQ_MODEL: "'openai/gpt-oss-120b'",
+    });
+    expect(p.apiKey).toBe("gsk_abc");
+    expect(p.model).toBe("openai/gpt-oss-120b");
+  });
+
   it("allows overriding base URL and strips trailing slash", () => {
     const [p] = getProviders({
       LLM_PROVIDER_ORDER: "groq",

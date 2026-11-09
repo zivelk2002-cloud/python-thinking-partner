@@ -24,21 +24,29 @@ export function getProviders(env: Env = process.env): ProviderConfig[] {
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean);
 
+  // Tolerate values pasted with surrounding quotes or whitespace (common in hosting dashboards).
+  const read = (name: string) => env[name]?.trim().replace(/^(["'])(.*)\1$/, "$2").trim();
+
   const result: ProviderConfig[] = [];
+  const skipped: string[] = [];
   for (const id of order) {
     const known = KNOWN[id];
     if (!known) {
       console.warn(`[llm] unknown provider "${id}" in LLM_PROVIDER_ORDER, skipping`);
       continue;
     }
-    const apiKey = env[`${known.envPrefix}_API_KEY`]?.trim();
-    const model = env[`${known.envPrefix}_MODEL`]?.trim();
-    if (!apiKey || !model) continue;
-    const baseUrl = (env[`${known.envPrefix}_BASE_URL`]?.trim() || known.defaultBaseUrl).replace(
-      /\/+$/,
-      "",
-    );
+    const apiKey = read(`${known.envPrefix}_API_KEY`);
+    const model = read(`${known.envPrefix}_MODEL`);
+    if (!apiKey || !model) {
+      if (apiKey || model) skipped.push(`${id} (missing ${apiKey ? "MODEL" : "API_KEY"})`);
+      continue;
+    }
+    const baseUrl = (read(`${known.envPrefix}_BASE_URL`) || known.defaultBaseUrl).replace(/\/+$/, "");
     result.push({ id, baseUrl, apiKey, model });
+  }
+  if (skipped.length) console.warn(`[llm] incomplete provider config: ${skipped.join(", ")}`);
+  if (result.length === 0) {
+    console.error("[llm] no LLM provider configured: set at least one *_API_KEY and *_MODEL env var");
   }
   return result;
 }
