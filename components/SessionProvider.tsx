@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import type { Mode } from "@/lib/prompts";
+import type { Mode } from "@/lib/modes";
 
 /**
  * All session state lives in this tab only: React state mirrored to

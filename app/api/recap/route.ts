@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { isLocale, type Locale } from "@/i18n/config";
 import type { ApiErrorCode, ApiResponse } from "@/lib/api";
+import { codeLikeLines } from "@/lib/guard";
 import { runWithGuard } from "@/lib/pipeline";
 import { buildRecapMessages, formatTranscript, isMode, LIMITS, TEMPERATURE } from "@/lib/prompts";
 import type { ChatMessage } from "@/lib/llm/types";
@@ -41,6 +42,8 @@ export async function POST(req: Request) {
     if (buffer.length) sections.push(`### ${MODE_LABEL[currentMode as keyof typeof MODE_LABEL]}\n${formatTranscript(buffer, Infinity)}`);
     buffer = [];
   };
+  let hasBreakdown = false;
+  const derivedCode: string[] = [];
   for (const item of body.transcript as unknown[]) {
     if (!item || typeof item !== "object") continue;
     const { mode, role, content } = item as Record<string, unknown>;
@@ -49,6 +52,10 @@ export async function POST(req: Request) {
       flush();
       currentMode = mode;
     }
+    if (mode === "breakdown" && role === "user") hasBreakdown = true;
+    // INTEGRITY: don't rely only on the client-supplied studentCode; any code the
+    // student typed into the conversation is also checked for in the recap.
+    if (role === "user") derivedCode.push(...codeLikeLines(content));
     buffer.push({ role, content: content.slice(0, LIMITS.messageChars) });
   }
   flush();
@@ -58,11 +65,12 @@ export async function POST(req: Request) {
   if (transcript.length > LIMITS.transcriptChars) transcript = transcript.slice(-LIMITS.transcriptChars);
 
   // INTEGRITY: the student's code is used ONLY for the guard's overlap check; it is never sent to the model.
-  const studentCode = typeof body.studentCode === "string" ? body.studentCode.slice(0, LIMITS.codeChars * 4) : "";
+  const suppliedCode = typeof body.studentCode === "string" ? body.studentCode.slice(0, LIMITS.codeChars * 4) : "";
+  const studentCode = [suppliedCode, ...derivedCode].filter(Boolean).join("\n");
 
   const result = await runWithGuard({
     task: "recap",
-    messages: buildRecapMessages(locale, DOC_TITLE[locale], transcript),
+    messages: buildRecapMessages(locale, DOC_TITLE[locale], transcript, hasBreakdown),
     temperature: TEMPERATURE.recap,
     ctx: { studentCode },
   });

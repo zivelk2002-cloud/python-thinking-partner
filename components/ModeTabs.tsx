@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import { MODES, type Mode } from "@/lib/prompts";
+import { MODES, type Mode } from "@/lib/modes";
 import { useSession } from "./SessionProvider";
 
 /** Accessible tablist (arrow keys move between tabs). On other pages, picking a tab returns home. */

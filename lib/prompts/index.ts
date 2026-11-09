@@ -6,20 +6,18 @@ import { NARRATOR_PROMPT, narratorFirstMessage } from "./narrator";
 import { SYNTAX_PROMPT } from "./syntax";
 import { recapPrompt } from "./recap";
 
-export const MODES = ["breakdown", "narrator", "syntax"] as const;
-export type Mode = (typeof MODES)[number];
-
-/** A guard/prompt "task": the three chat modes plus the two one-shot tasks. */
-export type Task = Mode | "summary" | "recap";
-
-export function isMode(v: unknown): v is Mode {
-  return typeof v === "string" && (MODES as readonly string[]).includes(v);
-}
+import { type Mode, type Task } from "@/lib/modes";
+export { MODES, isMode, type Mode, type Task } from "@/lib/modes";
 
 /** Context limits that keep us inside free-tier token budgets. */
 export const LIMITS = {
   historyMessages: 10,
   messageChars: 4000,
+  /** Total characters of history sent per request (oldest turns are dropped first). */
+  historyChars: 12000,
+  /** Summary sees more turns, but within its own budget. */
+  summaryMessages: 30,
+  summaryChars: 16000,
   codeChars: 8000,
   outputChars: 4000,
   transcriptChars: 12000,
@@ -39,8 +37,16 @@ const MODE_PROMPTS: Record<Mode, string> = {
   syntax: SYNTAX_PROMPT,
 };
 
-/** Keep only user/assistant turns (never trust a client-sent system role) and trim. */
-export function sanitizeHistory(history: unknown, maxMessages: number = LIMITS.historyMessages): ChatMessage[] {
+/**
+ * Keep only user/assistant turns (never trust a client-sent system role), then
+ * trim to the last `maxMessages` turns and to a total character budget, so one
+ * request can't use up the shared free-tier token quota.
+ */
+export function sanitizeHistory(
+  history: unknown,
+  maxMessages: number = LIMITS.historyMessages,
+  maxChars: number = LIMITS.historyChars,
+): ChatMessage[] {
   if (!Array.isArray(history)) return [];
   const clean: ChatMessage[] = [];
   for (const m of history) {
@@ -51,7 +57,11 @@ export function sanitizeHistory(history: unknown, maxMessages: number = LIMITS.h
     if (!text) continue;
     clean.push({ role, content: text.slice(0, LIMITS.messageChars) });
   }
-  return clean.slice(-maxMessages);
+  const recent = clean.slice(-maxMessages);
+  let total = recent.reduce((n, m) => n + m.content.length, 0);
+  // Drop oldest turns until within budget, but always keep the latest message.
+  while (total > maxChars && recent.length > 1) total -= recent.shift()!.content.length;
+  return recent;
 }
 
 export interface BuildInput {
@@ -81,11 +91,16 @@ export function buildSummaryMessages(locale: Locale, history: ChatMessage[]): Ch
   ];
 }
 
-export function buildRecapMessages(locale: Locale, title: string, transcript: string): ChatMessage[] {
+export function buildRecapMessages(
+  locale: Locale,
+  title: string,
+  transcript: string,
+  hasBreakdown: boolean,
+): ChatMessage[] {
   return [
     {
       role: "system",
-      content: withSharedRules(recapPrompt(localeLanguageName[locale], title), localeLanguageName[locale]),
+      content: withSharedRules(recapPrompt(localeLanguageName[locale], title, hasBreakdown), localeLanguageName[locale]),
     },
     { role: "user", content: `Session transcript:\n<transcript>\n${transcript}\n</transcript>` },
   ];

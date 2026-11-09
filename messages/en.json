@@ -38,7 +38,8 @@
       "codeShown": "The code I'm describing",
       "editCode": "Describe different code",
       "followUpLabel": "Ask about a line",
-      "followUpPlaceholder": "e.g. What does line 6 do exactly?"
+      "followUpPlaceholder": "e.g. What does line 6 do exactly?",
+      "hypotheticalRefusal": "I can only describe the code you submitted, not changed or \"what if\" versions of it. If you want to see what different code does, edit it yourself and use \"Describe different code\" to submit the new version."
     },
     "syntax": {
       "tab": "Syntax help",

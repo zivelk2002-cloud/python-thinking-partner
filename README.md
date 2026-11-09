@@ -48,7 +48,7 @@ npm run dev                      # http://localhost:3000 → redirects to /he
 | `npm run build && npm start` | Production build and server |
 | `npm test` | Vitest unit tests (guard, pipeline, LLM fallback, rate limiter, message files) |
 | `npm run lint` | ESLint |
-| `npm run red-team` | Sends the adversarial prompts to a running server (see [`tests/red-team.md`](tests/red-team.md)) |
+| `npm run red-team` | Runs the red-team harness against a running server (see [`scripts/red-team/REPORT.md`](scripts/red-team/REPORT.md) and [`tests/red-team.md`](tests/red-team.md)) |
 
 Without any API key the site still loads, and every AI request shows the friendly "the free AI is busy" message.
 
@@ -116,7 +116,7 @@ The NotebookLM video prompt and the recap title are UI strings in `messages/*.js
 3. **[`app/[locale]/layout.tsx`](app/%5Blocale%5D/layout.tsx):** add a font with Arabic glyphs, e.g. `Noto_Sans_Arabic` from `next/font/google`, and include it in the font stack in `app/globals.css`.
 4. **[`app/api/recap/route.ts`](app/api/recap/route.ts):** add `ar` to `DOC_TITLE`. TypeScript will point to it.
 5. **Guard:** add Arabic lists next to `en`/`he` in [`lib/guard-words.ts`](lib/guard-words.ts): fix language, approach phrases, and the write-request regex. Use substring matching (like Hebrew) and update `containsPhrase` in `lib/guard.ts` to check them. The question counter already handles `؟`.
-6. Add Arabic cases to `scripts/red-team-cases.ts` and run them.
+6. Add Arabic cases to `scripts/red-team/cases.ts` and run them.
 
 All layout uses logical properties (`ms-`, `ps-`, `start-`, `text-start`), and code is always `dir="ltr"`, so RTL needs no extra CSS.
 
@@ -148,7 +148,7 @@ lib/prompts/         system prompts
 lib/guard.ts         output guard (+ guard-words.ts)
 lib/pipeline.ts      model call → guard → retry once → fallback
 messages/            he.json, en.json
-scripts/red-team.ts  adversarial prompt runner
+scripts/red-team/    red-team harness (cases, runner, security checks, REPORT.md)
 tests/               Vitest tests + red-team.md
 ```
 

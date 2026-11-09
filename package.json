@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "red-team": "tsx scripts/red-team.ts"
+    "red-team": "tsx scripts/red-team/run.ts",
+    "red-team:checks": "tsx --tsconfig scripts/red-team/tsconfig.checks.json scripts/red-team/checks.ts",
+    "red-team:summary": "tsx scripts/red-team/summarize.ts"
   },
   "dependencies": {
     "next": "15.5.29",
