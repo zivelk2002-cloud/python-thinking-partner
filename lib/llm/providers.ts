@@ -38,7 +38,8 @@ export function getProviders(env: Env = process.env): ProviderConfig[] {
     const apiKey = read(`${known.envPrefix}_API_KEY`);
     const model = read(`${known.envPrefix}_MODEL`);
     if (!apiKey || !model) {
-      if (apiKey || model) skipped.push(`${id} (missing ${apiKey ? "MODEL" : "API_KEY"})`);
+      // A model without a key is the default .env.example setup, so only a key without a model is worth a warning.
+      if (apiKey && !model) skipped.push(`${id} (missing MODEL)`);
       continue;
     }
     const baseUrl = (read(`${known.envPrefix}_BASE_URL`) || known.defaultBaseUrl).replace(/\/+$/, "");

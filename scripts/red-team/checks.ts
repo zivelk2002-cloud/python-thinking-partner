@@ -71,7 +71,8 @@ async function bundleScan() {
     ["provider endpoints", /api\.groq\.com|generativelanguage\.googleapis\.com|openrouter\.ai\/api/],
     ["shared rules prompt", /Absolute rules|learning companion for students/],
     ["mode prompts", /Mode: Code narrator|Mode: Syntax help|Mode: Break it down|Forbidden words and ideas/],
-    ["guard word lists", /probably meant|נסה להשתמש|TECHNIQUE_TERMS/],
+    // Strings unique to lib/guard-words.ts ("probably meant" also appears in React's own errors).
+    ["guard word lists", /נסה להשתמש|never incremented|not how many|TECHNIQUE_TERMS|HYPOTHETICAL_REPLY|SHARED_VOCAB/],
   ];
   const leakedKey = secrets.some((s) => corpus.includes(s));
   record("bundle:api-key-value", !leakedKey, leakedKey ? "an API key from .env.local appears in client assets!" : `scanned ${assets.size} scripts + ${pages.length} pages; no key value found`);
